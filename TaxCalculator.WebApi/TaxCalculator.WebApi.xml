@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TaxCalculator.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:TaxCalculator.Web.Controllers.TaxCalculatorController">
+            <summary>
+            Provides all the endpoints to do tax calculations
+            </summary>
+        </member>
+        <member name="M:TaxCalculator.Web.Controllers.TaxCalculatorController.Calculate(TaxCalculator.WebApi.ViewModels.CalculateTaxRequest)">
+            <summary>
+            Returns the computed annual income tax based on the provide annual income
+            </summary>
+            <param name="calculateTaxRequest"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
