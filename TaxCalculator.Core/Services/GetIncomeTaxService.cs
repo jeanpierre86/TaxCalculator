@@ -14,15 +14,13 @@ namespace TaxCalculator.Core.Services
         private readonly IFlatValuesRepository _flatValuesRepository;
         private readonly IPostalCodeCalculationTypesRepository _postalCodeCalculationTypesRepository;
         private readonly IProgressiveRatesRepository _progressiveRatesRepository;
-        private readonly ITaxCalculationResultsRepository _taxCalculationResultsRepository;
 
         public GetIncomeTaxService(
             IMapper mapper,
             IFlatRatesRepository flatRatesRepository,
             IFlatValuesRepository flatValuesRepository,
             IPostalCodeCalculationTypesRepository postalCodeCalculationTypesRepository,
-            IProgressiveRatesRepository progressiveRatesRepository,
-            ITaxCalculationResultsRepository taxCalculationResultsRepository)
+            IProgressiveRatesRepository progressiveRatesRepository)
         {
             _mapper = mapper ?? 
                 throw new ArgumentNullException(nameof(mapper));
@@ -38,9 +36,6 @@ namespace TaxCalculator.Core.Services
 
             _progressiveRatesRepository = progressiveRatesRepository ?? 
                 throw new ArgumentNullException(nameof(progressiveRatesRepository));
-
-            _taxCalculationResultsRepository = taxCalculationResultsRepository ?? 
-                throw new ArgumentNullException(nameof(taxCalculationResultsRepository));
         }
 
         public async Task<CalculateTaxResponseDTO> GetIncomeTaxAsync(

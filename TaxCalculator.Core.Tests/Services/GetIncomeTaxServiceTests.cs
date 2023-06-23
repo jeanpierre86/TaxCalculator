@@ -7,15 +7,14 @@ using TaxCalculator.Core.Services;
 
 namespace TaxCalculator.Core.Tests.Services
 {
-    public class TaxCalculatorServiceTests
+    public class GetIncomeTaxServiceTests
     {
         private Mock<IMapper> _mapperMock;
         private Mock<IFlatRatesRepository> _flatRatesRepositoryMock;
         private Mock<IFlatValuesRepository> _flatValuesRepositoryMock;
         private Mock<IPostalCodeCalculationTypesRepository> _postalCodeCalculationTypesRepositoryMock;
         private Mock<IProgressiveRatesRepository> _progressiveRatesRepositoryMock;
-        private Mock<ITaxCalculationResultsRepository> _taxCalculationResultsRepositoryMock;
-        private GetIncomeTaxService _taxCalculatorService;
+        private GetIncomeTaxService _getIncomeTaxService;
 
         [SetUp]
         public void SetUp()
@@ -25,15 +24,13 @@ namespace TaxCalculator.Core.Tests.Services
             _flatValuesRepositoryMock = new Mock<IFlatValuesRepository>();
             _postalCodeCalculationTypesRepositoryMock = new Mock<IPostalCodeCalculationTypesRepository>();
             _progressiveRatesRepositoryMock = new Mock<IProgressiveRatesRepository>();
-            _taxCalculationResultsRepositoryMock = new Mock<ITaxCalculationResultsRepository>();
 
-            _taxCalculatorService = new GetIncomeTaxService(
+            _getIncomeTaxService = new GetIncomeTaxService(
                 _mapperMock.Object,
                 _flatRatesRepositoryMock.Object,
                 _flatValuesRepositoryMock.Object,
                 _postalCodeCalculationTypesRepositoryMock.Object,
-                _progressiveRatesRepositoryMock.Object,
-                _taxCalculationResultsRepositoryMock.Object);
+                _progressiveRatesRepositoryMock.Object);
         }
 
         [Test]
@@ -45,8 +42,7 @@ namespace TaxCalculator.Core.Tests.Services
                 _flatRatesRepositoryMock.Object,
                 _flatValuesRepositoryMock.Object,
                 _postalCodeCalculationTypesRepositoryMock.Object,
-                _progressiveRatesRepositoryMock.Object,
-                _taxCalculationResultsRepositoryMock.Object);
+                _progressiveRatesRepositoryMock.Object);
 
             // Assert
             act.Should().Throw<ArgumentNullException>().WithMessage("*mapper*");
@@ -61,8 +57,7 @@ namespace TaxCalculator.Core.Tests.Services
                 null,
                 _flatValuesRepositoryMock.Object,
                 _postalCodeCalculationTypesRepositoryMock.Object,
-                _progressiveRatesRepositoryMock.Object,
-                _taxCalculationResultsRepositoryMock.Object);
+                _progressiveRatesRepositoryMock.Object);
 
             // Assert
             act.Should().Throw<ArgumentNullException>().WithMessage("*flatRatesRepository*");
@@ -77,8 +72,7 @@ namespace TaxCalculator.Core.Tests.Services
                 _flatRatesRepositoryMock.Object,
                 null,
                 _postalCodeCalculationTypesRepositoryMock.Object,
-                _progressiveRatesRepositoryMock.Object,
-                _taxCalculationResultsRepositoryMock.Object);
+                _progressiveRatesRepositoryMock.Object);
 
             // Assert
             act.Should().Throw<ArgumentNullException>().WithMessage("*flatValuesRepository*");
@@ -93,8 +87,7 @@ namespace TaxCalculator.Core.Tests.Services
                 _flatRatesRepositoryMock.Object,
                 _flatValuesRepositoryMock.Object,
                 null,
-                _progressiveRatesRepositoryMock.Object,
-                _taxCalculationResultsRepositoryMock.Object);
+                _progressiveRatesRepositoryMock.Object);
 
             // Assert
             act.Should().Throw<ArgumentNullException>().WithMessage("*postalCodeCalculationTypesRepository*");
@@ -109,27 +102,10 @@ namespace TaxCalculator.Core.Tests.Services
                 _flatRatesRepositoryMock.Object,
                 _flatValuesRepositoryMock.Object,
                 _postalCodeCalculationTypesRepositoryMock.Object,
-                null,
-                _taxCalculationResultsRepositoryMock.Object);
-
-            // Assert
-            act.Should().Throw<ArgumentNullException>().WithMessage("*progressiveRatesRepository*");
-        }
-
-        [Test]
-        public void Constructor_WithNullTaxCalculationResultsRepository_ShouldThrowArgumentNullException()
-        {
-            // Act
-            Action act = () => new GetIncomeTaxService(
-                _mapperMock.Object,
-                _flatRatesRepositoryMock.Object,
-                _flatValuesRepositoryMock.Object,
-                _postalCodeCalculationTypesRepositoryMock.Object,
-                _progressiveRatesRepositoryMock.Object,
                 null);
 
             // Assert
-            act.Should().Throw<ArgumentNullException>().WithMessage("*taxCalculationResultsRepository*");
+            act.Should().Throw<ArgumentNullException>().WithMessage("*progressiveRatesRepository*");
         }
     }
 }

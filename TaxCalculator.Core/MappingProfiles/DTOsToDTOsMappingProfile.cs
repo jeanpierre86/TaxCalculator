@@ -8,7 +8,8 @@ namespace TaxCalculator.Core.MappingProfiles
         public DTOsToDTOsMappingProfile()
         {
             CreateMap<CalculateTaxRequestDTO, CalculateTaxResponseDTO>()
-                .ForMember(dest => dest.IncomeTax, opt => opt.Ignore());
+                .ForMember(dest => dest.IncomeTax, opt => opt.Ignore())
+                .ForMember(dest => dest.Errors, opt => opt.Ignore());
         }
     }
 }
