@@ -1,4 +1,5 @@
-﻿using TaxCalculator.Core.Domain.Entities;
+﻿using TaxCalculator.Core.Constants;
+using TaxCalculator.Core.Domain.Entities;
 
 namespace TaxCalculator.Infrastructure.SeedData
 {
@@ -47,7 +48,7 @@ namespace TaxCalculator.Infrastructure.SeedData
                 {
                     Id = Guid.Parse("0F7B7BED-B541-4E0D-8FFD-985F0AF27FE2"),
                     AnnualIncomeFrom = 372951m,
-                    AnnualIncomeTo = decimal.MaxValue,
+                    AnnualIncomeTo = NumericConstraints.MaxDecimalValue,
                     Rate = 0.35m
                 }
             };

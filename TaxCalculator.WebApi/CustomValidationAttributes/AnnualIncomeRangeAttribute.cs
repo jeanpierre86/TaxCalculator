@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TaxCalculator.Core.Constants;
 
 namespace TaxCalculator.WebApi.CustomValidationAttributes
 {
@@ -12,12 +13,12 @@ namespace TaxCalculator.WebApi.CustomValidationAttributes
             if (!decimal.TryParse(value.ToString(), out decimal decimalValue))
                 return false;
 
-            return decimalValue >= 0m && decimalValue <= decimal.MaxValue;
+            return decimalValue >= 0m && decimalValue <= NumericConstraints.MaxDecimalValue;
         }
 
         public override string FormatErrorMessage(string name)
         {
-            return $"{name} must be between {0m} and {decimal.MaxValue}.";
+            return $"{name} must be between {0m} and {NumericConstraints.MaxDecimalValue}.";
         }
     }
 }
