@@ -1,13 +1,22 @@
 ﻿using TaxCalculator.Core.Domain.Entities;
 using TaxCalculator.Core.Domain.RepositoryContracts;
+using TaxCalculator.Infrastructure.DatabaseContext;
 
 namespace TaxCalculator.Infrastructure.Repositories
 {
     public class TaxCalculationResultsRepository : ITaxCalculationResultsRepository
     {
-        public Task AddTaxCalculationResultAsync(TaxCalculationResult taxCalculationResult)
+        private readonly ApplicationDbContext _dbContext;
+
+        public TaxCalculationResultsRepository(ApplicationDbContext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+        }
+
+        public async Task AddTaxCalculationResultAsync(TaxCalculationResult taxCalculationResult)
+        {
+            await _dbContext.TaxCalculationResults.AddAsync(taxCalculationResult);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

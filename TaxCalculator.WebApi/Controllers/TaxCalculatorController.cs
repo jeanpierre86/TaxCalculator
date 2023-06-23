@@ -14,12 +14,16 @@ namespace TaxCalculator.Web.Controllers
     public class TaxCalculatorController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly ITaxCalculatorService _taxCalculatorService;
+        private readonly IGetIncomeTaxService _taxCalculatorService;
+        private readonly ISaveIncomeTaxService _saveIncomeTaxService;
 
-        public TaxCalculatorController(IMapper mapper, ITaxCalculatorService taxCalculatorService)
+        public TaxCalculatorController(IMapper mapper, 
+            IGetIncomeTaxService taxCalculatorService, 
+            ISaveIncomeTaxService saveIncomeTaxService)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _taxCalculatorService = taxCalculatorService ?? throw new ArgumentNullException(nameof(taxCalculatorService));
+            _saveIncomeTaxService = saveIncomeTaxService ?? throw new ArgumentNullException(nameof(saveIncomeTaxService));
         }
 
         /// <summary>
@@ -30,8 +34,12 @@ namespace TaxCalculator.Web.Controllers
         [HttpPost("calculate")]
         public async Task<CalculateTaxResponseDTO> Calculate(CalculateTaxRequest calculateTaxRequest)
         {
-            return await _taxCalculatorService
-                .CalculateTaxAsync(_mapper.Map<CalculateTaxRequestDTO>(calculateTaxRequest));
+            var calculateTaxResponseDTO = await _taxCalculatorService
+                .GetIncomeTaxAsync(_mapper.Map<CalculateTaxRequestDTO>(calculateTaxRequest));
+
+            await _saveIncomeTaxService.SaveIncomeTaxAsync(calculateTaxResponseDTO);
+
+            return calculateTaxResponseDTO;
         }
     }
 }

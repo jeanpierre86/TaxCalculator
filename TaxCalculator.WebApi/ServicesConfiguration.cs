@@ -44,7 +44,8 @@ namespace TaxCalculator.Web
 
         public static void ConfigureCustomServices(this IServiceCollection services)
         {
-            services.AddScoped<ITaxCalculatorService, TaxCalculatorService>();
+            services.AddScoped<IGetIncomeTaxService, GetIncomeTaxService>();
+            services.AddScoped<ISaveIncomeTaxService, SaveIncomeTaxService>();
         }
 
         public static void ConfigureRepositories(this IServiceCollection services)
@@ -62,6 +63,7 @@ namespace TaxCalculator.Web
             {
                 config.AddProfile(new ViewModelsToDTOsMappingProfile());
                 config.AddProfile(new EntitiesToDTOsMappingProfile());
+                config.AddProfile(new DTOsToDTOsMappingProfile());
             });
 
             IMapper mapper = mappingConfig.CreateMapper();
