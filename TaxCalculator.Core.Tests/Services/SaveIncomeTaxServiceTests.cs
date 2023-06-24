@@ -1,13 +1,17 @@
-﻿using AutoMapper;
+﻿using AutoFixture;
+using AutoMapper;
 using FluentAssertions;
 using Moq;
+using TaxCalculator.Core.Domain.Entities;
 using TaxCalculator.Core.Domain.RepositoryContracts;
+using TaxCalculator.Core.DTOs;
 using TaxCalculator.Core.Services;
 
 namespace TaxCalculator.Core.Tests.Services
 {
     public class SaveIncomeTaxServiceTests
     {
+        private IFixture _fixture;
         private Mock<IMapper> _mapperMock;
         private Mock<ITaxCalculationResultsRepository> _taxCalculationResultsRepositoryMock;
         private SaveIncomeTaxService _saveIncomeTaxService;
@@ -15,6 +19,7 @@ namespace TaxCalculator.Core.Tests.Services
         [SetUp]
         public void SetUp()
         {
+            _fixture = new Fixture();
             _mapperMock = new Mock<IMapper>();
             _taxCalculationResultsRepositoryMock = new Mock<ITaxCalculationResultsRepository>();
 
@@ -45,6 +50,23 @@ namespace TaxCalculator.Core.Tests.Services
 
             // Assert
             act.Should().Throw<ArgumentNullException>().WithMessage("*taxCalculationResultsRepository*");
+        }
+
+        [Test]
+        public async Task SaveIncomeTaxAsync_WhenCalculateTaxResponseProvided_ShouldCallRepositoryToSave()
+        {
+            //Arrange
+            var calculateTaxResponse = _fixture.Create<CalculateTaxResponseDTO>();
+
+            _mapperMock.Setup(x => x.Map<TaxCalculationResult>(It.IsAny<CalculateTaxResponseDTO>()))
+                .Returns(new TaxCalculationResult());
+
+            //Act
+            await _saveIncomeTaxService.SaveIncomeTaxAsync(calculateTaxResponse);
+
+            //Assert
+            _mapperMock.Verify(x => x.Map<TaxCalculationResult>(calculateTaxResponse), Times.Once);
+            _mapperMock.VerifyAll();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using TaxCalculator.Core.Constants;
 using TaxCalculator.Core.Domain.Entities;
+using TaxCalculator.Core.Domain.Entities.Enums;
 using TaxCalculator.Core.Domain.RepositoryContracts;
 using TaxCalculator.Core.DTOs;
 using TaxCalculator.Core.ServiceContracts;
@@ -52,13 +53,13 @@ namespace TaxCalculator.Core.Services
 
             switch (calculationType.CalculationType)
             {
-                case Domain.Entities.Enums.TaxCalculationType.Progressive:
+                case TaxCalculationType.Progressive:
                     return await GetProgressiveTaxAsync(calculateTaxRequest);
 
-                case Domain.Entities.Enums.TaxCalculationType.FlatValue:
+                case TaxCalculationType.FlatValue:
                     return await GetFlatValueTaxAsync(calculateTaxRequest);
 
-                case Domain.Entities.Enums.TaxCalculationType.FlatRate:
+                case TaxCalculationType.FlatRate:
                     return await GetFlatRateTaxAsync(calculateTaxRequest);
 
                 default:
@@ -72,12 +73,12 @@ namespace TaxCalculator.Core.Services
             var progressiveRates = await _progressiveRatesRepository.GetProgressiveRatesAsync();
 
             var calculateTaxResult = _mapper.Map<CalculateTaxResponseDTO>(calculateTaxRequest);
-            calculateTaxResult.IncomeTax = CalculateTaxAmount(calculateTaxRequest.AnnualIncome, progressiveRates);
+            calculateTaxResult.IncomeTax = CalculateProgressiveTaxAmount(calculateTaxRequest.AnnualIncome, progressiveRates);
 
             return calculateTaxResult;
         }
 
-        public static decimal CalculateTaxAmount(
+        private decimal CalculateProgressiveTaxAmount(
             decimal annualIncome, 
             IEnumerable<ProgressiveRate> progressiveRates)
         {
