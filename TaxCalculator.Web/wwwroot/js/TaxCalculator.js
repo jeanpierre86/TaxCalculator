@@ -1,7 +1,7 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("calculateBtn").addEventListener("click", function () {
-        var annualIncome = document.getElementById("annualincome").value;
-        var postalCode = document.getElementById("postalcode").value;
+        var annualIncome = document.getElementById("AnnualIncome").value;
+        var postalCode = document.getElementById("PostalCode").value;
         var resultContainer = document.getElementById("result");
 
         var request = {
@@ -18,7 +18,12 @@
         })
         .then(response => response.json())
         .then(data => {
-            resultContainer.innerText = "Income Tax: " + data.IncomeTax;
+            if (data.Errors && data.Errors.length > 0) {
+                resultContainer.innerText = "Error: " + data.Errors.join("; ");
+            }
+            else {
+                resultContainer.innerText = "Income Tax: " + data.IncomeTax;
+            }            
         })
         .catch(error => {
             resultContainer.innerText = error;

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Options;
-using System;
 using System.Text;
 using System.Text.Json;
 using TaxCalculator.Web.ConfigurationOptions;

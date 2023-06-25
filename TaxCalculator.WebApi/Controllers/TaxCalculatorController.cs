@@ -3,6 +3,7 @@ using AutoMapper;
 using TaxCalculator.WebApi.ViewModels;
 using TaxCalculator.Core.DTOs;
 using TaxCalculator.Core.ServiceContracts;
+using TaxCalculator.WebApi.Filters;
 
 namespace TaxCalculator.Web.Controllers
 {
@@ -32,6 +33,7 @@ namespace TaxCalculator.Web.Controllers
         /// <param name="calculateTaxRequest"></param>
         /// <returns></returns>
         [HttpPost("calculate")]
+        [CalculateTaxExceptionFilter]
         public async Task<CalculateTaxResponseDTO> Calculate(CalculateTaxRequest calculateTaxRequest)
         {
             var calculateTaxResponseDTO = await _taxCalculatorService

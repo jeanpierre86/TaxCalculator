@@ -7,11 +7,11 @@ namespace TaxCalculator.Infrastructure.DatabaseContext
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<FlatRate> FlatRates { get; set; }
-        public DbSet<FlatValue> FlatValues { get; set; }
-        public DbSet<PostalCodeCalculationType> PostalCodeCalculationTypes { get; set; }
-        public DbSet<ProgressiveRate> ProgressiveRates { get; set; }
-        public DbSet<TaxCalculationResult> TaxCalculationResults { get; set; }
+        public virtual DbSet<FlatRate> FlatRates { get; set; }
+        public virtual DbSet<FlatValue> FlatValues { get; set; }
+        public virtual DbSet<PostalCodeCalculationType> PostalCodeCalculationTypes { get; set; }
+        public virtual DbSet<ProgressiveRate> ProgressiveRates { get; set; }
+        public virtual DbSet<TaxCalculationResult> TaxCalculationResults { get; set; }
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {

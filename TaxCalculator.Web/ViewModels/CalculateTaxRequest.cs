@@ -6,9 +6,9 @@ namespace TaxCalculator.Web.ViewModels
     {
         [Required]
         [StringLength(10, MinimumLength = 3)]
-        public string PostalCode { get; set; }
+        public string? PostalCode { get; set; }
 
         [Required]
-        public decimal AnnualIncome { get; set; }
+        public decimal? AnnualIncome { get; set; }
     }
 }

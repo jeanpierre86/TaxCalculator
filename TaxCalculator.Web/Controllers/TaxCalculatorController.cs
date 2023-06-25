@@ -28,7 +28,15 @@ namespace TaxCalculator.Web.Controllers
                 var incomeTax = await _webApiService.GetTaxCalculationAsync(calculateTaxRequest);
                 return Json(incomeTax);
             }
-            return BadRequest();
+
+            var errorMessages = ModelState.Values
+                .SelectMany(v => v.Errors)
+                .Select(e => e.ErrorMessage);
+
+            return Json(new CalculateTaxResponse()
+            {
+                Errors = errorMessages
+            });
         }
     }
 }
