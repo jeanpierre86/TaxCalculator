@@ -1,18 +1,27 @@
 ﻿@model CalculateTaxRequest
 
-<div>
-    <label for="postalcode">PostalCode:</label>
-    <input type="text" id="postalcode" />
+<div class="container">
+    <div class="row mb-2">
+        <div class="col">
+            <label asp-for="PostalCode">PostalCode:</label>
+            <input asp-for="PostalCode" id="postalcode" class="form-control" />
+        </div>
+        <div class="col">
+            <label asp-for="AnnualIncome">AnnualIncome:</label>
+            <input asp-for="AnnualIncome" id="annualincome" class="form-control" />
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <button id="calculateBtn" type="button" class="btn btn-dark">Calculate</button>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-4">
+            <h3 id="result"></h3>
+        </div>
+    </div>
 </div>
-
-<div>
-    <label for="annualincome">AnnualIncome:</label>
-    <input type="number" id="annualincome" />
-</div>
-
-<button id="calculateBtn">Calculate</button>
-
-<div id="result"></div>
 
 @section Scripts {
     <script src="~/js/TaxCalculator.js"></script>
