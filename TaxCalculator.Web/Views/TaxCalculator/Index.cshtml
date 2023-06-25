@@ -1,0 +1,19 @@
+﻿@model CalculateTaxRequest
+
+<div>
+    <label for="postalcode">PostalCode:</label>
+    <input type="text" id="postalcode" />
+</div>
+
+<div>
+    <label for="annualincome">AnnualIncome:</label>
+    <input type="number" id="annualincome" />
+</div>
+
+<button id="calculateBtn">Calculate</button>
+
+<div id="result"></div>
+
+@section Scripts {
+    <script src="~/js/TaxCalculator.js"></script>
+}

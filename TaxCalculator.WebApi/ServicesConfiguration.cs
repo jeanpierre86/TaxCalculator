@@ -39,7 +39,12 @@ namespace TaxCalculator.Web
 
         public static void ConfigureControllers(this IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                });
         }
 
         public static void ConfigureCustomServices(this IServiceCollection services)
