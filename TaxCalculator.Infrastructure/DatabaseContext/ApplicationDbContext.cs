@@ -60,7 +60,7 @@ namespace TaxCalculator.Infrastructure.DatabaseContext
 
             builder.Entity<TaxCalculationResult>()
                 .Property(x => x.IncomeTax)
-                .HasColumnType(SQLServerColumnTypes.Decimal188);
+                .HasColumnType(SQLServerColumnTypes.Decimal184);
 
             builder.Entity<PostalCodeCalculationType>()
                 .HasIndex(p => p.Code)

@@ -191,7 +191,7 @@ namespace TaxCalculator.Core.Tests.Services
             var firstBracket = progressiveRates.ElementAt(0);
             var secondBracket = progressiveRates.ElementAt(1);
             var firstBracketTax = firstBracket.Rate * firstBracket.AnnualIncomeTo;
-            var expectedIncomeTax = firstBracketTax + (calculateTaxRequest.AnnualIncome - firstBracket.AnnualIncomeTo) * secondBracket.Rate;
+            var expectedIncomeTax = firstBracketTax + (calculateTaxRequest.AnnualIncome - secondBracket.AnnualIncomeFrom) * secondBracket.Rate;
 
             _postalCodeCalculationTypesRepositoryMock.Setup(x => x.GetPostalCodeCalculationTypeForCodeAsync(calculateTaxRequest.PostalCode))
                 .ReturnsAsync(postalCodeCalculationType);

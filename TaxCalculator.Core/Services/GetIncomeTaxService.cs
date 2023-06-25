@@ -90,7 +90,7 @@ namespace TaxCalculator.Core.Services
                 decimal taxableIncome = Math.Min(remainingIncome, rate.AnnualIncomeTo - rate.AnnualIncomeFrom);
                 decimal taxBracketAmount = rate.Rate * taxableIncome;
                 taxAmount += taxBracketAmount;
-                remainingIncome -= taxableIncome;
+                remainingIncome -= taxableIncome + 1; // Add 1 to account for the different starting point in the first bracket
 
                 if (remainingIncome <= 0m)
                     break;
